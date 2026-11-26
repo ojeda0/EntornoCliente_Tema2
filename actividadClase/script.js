@@ -44,25 +44,34 @@ const a18 = new Alumno("Nuria", "Reyes Aguilar", "28-07-2001", "San Juan de Azna
 const a19 = new Alumno("Daniel", "Morales Cruz", "16-05-2004", "Tomares", "Hombre", 7.9);
 const a20 = new Alumno("Irene", "Herrera Domínguez", "22-03-2002", "Gelves", "Mujer", 4.9);
 
-const alumnos = [a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16, a17, a18, a19, a20];
+let alumnos = [a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16, a17, a18, a19, a20];
 
 const cuerpo = document.getElementById("cuerpo");
 
-alumnos.forEach(alumno => {
+function imprimir_tabla() {
 
-    const tr = document.createElement("tr");
-    cuerpo.appendChild(tr);
+        alumnos.forEach(alumno => {
 
-    Object.values(alumno).forEach(dato => {
+        const tr = document.createElement("tr");
+        cuerpo.appendChild(tr);
 
-        const td = document.createElement("td");
-        td.textContent = dato;
+        Object.values(alumno).forEach(dato => {
 
-        tr.appendChild(td);
+            const td = document.createElement("td");
+            td.textContent = dato;
+
+            tr.appendChild(td);
+
+        });
 
     });
+}
+imprimir_tabla();
 
-});
+function vaciar_tabla() {
+    const cuerpo = document.getElementById("cuerpo");
+    cuerpo.textContent = "";
+}
 
 function imprimir_alumnos() {
 
@@ -103,5 +112,21 @@ function mostrar_iniciales() {
     alumnos
         .map(alumno => alumno.nombre.charAt(0) + alumno.apellidos.charAt(0))
         .forEach(inicial => console.log(inicial));
+
+}
+
+function buscar_localidad() {
+    //Solicita localidad
+    let localidad = window.prompt("Introduce una localidad:");
+
+    if(localidad) {
+        localidad = localidad.toUpperCase().trim();
+    }
+
+    //Busca las coincidencias de dicha localidad
+    alumnos = alumnos.filter(alumno => alumno.localidad.toUpperCase().trim() === localidad);
+
+    vaciar_tabla();
+    imprimir_tabla();
 
 }
